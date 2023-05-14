@@ -107,13 +107,14 @@ export default function Sidebar() {
                             </Link>
                         </li>
                         <li>
-                            <div
+                            <Link
                                 className="flex items-center py-2 px-4 text-white/75 hover:bg-black rounded"
                                 onClick={() => signOut}
+                                href="/dashboard/login"
                             >
                                 <FaSignOutAlt className="mr-2" />
                                 Sign Out
-                            </div>
+                            </Link>
                         </li>
                         {/* <li className="md:hidden">
                             <Link
