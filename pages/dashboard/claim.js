@@ -58,7 +58,7 @@ export default function Claim() {
                     })
                 );
             })
-            .catch((error) => console.log(error));
+            .catch((error) => console.error(error));
     };
 
     useEffect(() => {
@@ -69,7 +69,12 @@ export default function Claim() {
         <Layout title="Claim">
             <Header title="Claim" onAdd={() => setIsOpenPost(true)} />
             <ToastContainer />
-            <Table data={data} onEdit={handlePutOpen} onDelete={handleDelete} />
+            <Table
+                data={data}
+                onWatch={false}
+                onEdit={handlePutOpen}
+                onDelete={handleDelete}
+            />
 
             {/* Model Post */}
             <ModelPost
@@ -312,7 +317,7 @@ function ModelPut({ isOpen, data, onClose, onSubmit }) {
                         message: response.data.message,
                     });
                 })
-                .catch((error) => console.log(error));
+                .catch((error) => console.error(error));
         };
 
         if (data) {

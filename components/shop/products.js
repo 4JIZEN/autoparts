@@ -20,7 +20,6 @@ export default function Products({ categories, search }) {
         }
 
         if (!!search) {
-            console.log(search);
             dataFilter = dataFilter.filter((obj) =>
                 obj.title.toUpperCase().includes(search.toUpperCase())
             );

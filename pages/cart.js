@@ -76,7 +76,7 @@ export default function Cart() {
                         setUserData(response.data);
                     }
                 })
-                .catch((error) => console.log(error));
+                .catch((error) => console.err(error));
         };
 
         fetchUser();

@@ -15,7 +15,7 @@ const Auth = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         // Handle form submission based on sign-in or sign-up mode
-        console.log("handleSubmit");
+
         if (isSignIn) {
             signIn("credentials", {
                 redirect: false,
@@ -44,7 +44,6 @@ const Auth = () => {
                     password: e.currentTarget.password.value,
                 }),
             }).then(async (res) => {
-                console.log(res.status);
                 if (res.status === 200) {
                     toast.success("สร้างบัญชีสำเร็จ");
                     setTimeout(() => {

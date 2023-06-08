@@ -57,15 +57,6 @@ export default function Sidebar() {
                                 className="flex items-center py-2 px-4 text-white/75 hover:bg-black rounded"
                                 href="/dashboard/"
                             >
-                                <FaTachometerAlt className="mr-2" />
-                                Dashboard
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                className="flex items-center py-2 px-4 text-white/75 hover:bg-black rounded"
-                                href="/dashboard/order"
-                            >
                                 <FaClipboardList className="mr-2" />
                                 Orders
                             </Link>
@@ -107,14 +98,17 @@ export default function Sidebar() {
                             </Link>
                         </li>
                         <li>
-                            <Link
-                                className="flex items-center py-2 px-4 text-white/75 hover:bg-black rounded"
-                                onClick={() => signOut}
-                                href="/dashboard/login"
+                            <div
+                                className="flex items-center cursor-pointer py-2 px-4 text-white/75 hover:bg-black rounded"
+                                onClick={() =>
+                                    signOut({
+                                        callbackUrl: `${window.location.origin}`,
+                                    })
+                                }
                             >
                                 <FaSignOutAlt className="mr-2" />
                                 Sign Out
-                            </Link>
+                            </div>
                         </li>
                         {/* <li className="md:hidden">
                             <Link

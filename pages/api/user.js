@@ -3,7 +3,6 @@ import { Users } from "../../databases/";
 
 export default async function handler(req, res) {
     if (req.method === "GET") {
-        console.log(req.query);
         try {
             if (_.isEmpty(req.query)) {
                 const data = await Users.findAll();

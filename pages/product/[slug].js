@@ -19,7 +19,6 @@ export default function Product() {
 
     const handleAddToCart = async () => {
         // Handle add to cart functionality
-        console.log("Product added to cart");
 
         const user = await axios
             .get(`/api/user?email=${session.user.email}`)

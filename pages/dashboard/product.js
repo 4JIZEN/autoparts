@@ -78,7 +78,7 @@ export default function Product() {
                     })
                 );
             })
-            .catch((error) => console.log(error));
+            .catch((error) => console.error(error));
     };
 
     useEffect(() => {
@@ -90,7 +90,12 @@ export default function Product() {
             <Header title="Product" onAdd={() => setIsOpenPost(true)} />
             <ToastContainer />
 
-            <Table data={data} onEdit={handlePutOpen} onDelete={handleDelete} />
+            <Table
+                data={data}
+                onWatch={false}
+                onEdit={handlePutOpen}
+                onDelete={handleDelete}
+            />
 
             {/* Model Post */}
             <ModelPost
@@ -162,7 +167,7 @@ function ModelPost({ isOpen, onClose, onSubmit }) {
                 .then((response) => {
                     setCategory(response.data);
                 })
-                .catch((error) => console.log(error));
+                .catch((error) => console.error(error));
         };
 
         fetchData();
@@ -320,7 +325,7 @@ function ModelPut({ isOpen, data, onClose, onSubmit }) {
                 .then((response) => {
                     setCategory(response.data);
                 })
-                .catch((error) => console.log(error));
+                .catch((error) => console.error(error));
 
             await axios
                 .get(`/api/product?id=${data}`)
@@ -333,7 +338,7 @@ function ModelPut({ isOpen, data, onClose, onSubmit }) {
                     setImage(response.data[0].image);
                     setCateId(response.data[0].category_id);
                 })
-                .catch((error) => console.log(error));
+                .catch((error) => console.error(error));
         };
 
         if (data) {

@@ -27,15 +27,17 @@ function Header({ title, onAdd }) {
                     </div>
                 </form>
 
-                <div className="ml-4 flex items-center md:ml-6">
-                    <button
-                        onClick={onAdd}
-                        className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded-md"
-                    >
-                        <FaPlus className="h-5 w-5 mr-2 inline-block" />
-                        Add
-                    </button>
-                </div>
+                {onAdd && (
+                    <div className="ml-4 flex items-center md:ml-6">
+                        <button
+                            onClick={onAdd}
+                            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded-md"
+                        >
+                            <FaPlus className="h-5 w-5 mr-2 inline-block" />
+                            Add
+                        </button>
+                    </div>
+                )}
             </div>
         </header>
     );

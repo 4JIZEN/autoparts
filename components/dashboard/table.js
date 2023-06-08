@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { FaEye, FaEdit, FaTrashAlt } from "react-icons/fa";
 
-function Table({ data, onEdit, onDelete }) {
+function Table({ data, onWatch, onEdit, onDelete }) {
     const [tableHeader, setTableHeader] = useState(<></>);
     const [tableContent, setTableContent] = useState(<></>);
 
@@ -32,18 +32,30 @@ function Table({ data, onEdit, onDelete }) {
 
                         <td className="px-4 py-2 text-sm text-center">
                             <div className="flex items-center justify-center">
-                                <button
-                                    className="p-1 text-blue-500 hover:text-blue-600 focus:outline-none"
-                                    onClick={() => onEdit(item.id)}
-                                >
-                                    <FaEdit className="h-5 w-5" />
-                                </button>
-                                <button
-                                    className="ml-2 p-1 text-red-500 hover:text-red-600 focus:outline-none"
-                                    onClick={() => onDelete(item.id)}
-                                >
-                                    <FaTrashAlt className="h-5 w-5" />
-                                </button>
+                                {onWatch && (
+                                    <button
+                                        className="p-1 text-blue-500 hover:text-blue-600 focus:outline-none"
+                                        onClick={() => onWatch(item.id)}
+                                    >
+                                        <FaEye className="h-5 w-5" />
+                                    </button>
+                                )}
+                                {onEdit && (
+                                    <button
+                                        className="p-1 text-blue-500 hover:text-blue-600 focus:outline-none"
+                                        onClick={() => onEdit(item.id)}
+                                    >
+                                        <FaEdit className="h-5 w-5" />
+                                    </button>
+                                )}
+                                {onDelete && (
+                                    <button
+                                        className="ml-2 p-1 text-red-500 hover:text-red-600 focus:outline-none"
+                                        onClick={() => onDelete(item.id)}
+                                    >
+                                        <FaTrashAlt className="h-5 w-5" />
+                                    </button>
+                                )}
                             </div>
                         </td>
                     </tr>

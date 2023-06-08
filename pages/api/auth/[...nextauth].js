@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcrypt";
-import { Users, Admin } from "../../../databases";
+import { Users } from "../../../databases";
 
 export const authOptions = {
     // Configure one or more authentication providers
@@ -10,24 +10,7 @@ export const authOptions = {
             name: "Credentials",
             credentials: {},
             async authorize(credentials, req) {
-                // Add logic here to look up the user from the credentials supplied
-
-                if (credentials?.admin) {
-                    const { email, password } = credentials;
-
-                    if (!email || !password) {
-                        throw new Error("Missing username or password");
-                    }
-
-                    const user = await Admin.findOne({
-                        where: { email },
-                    });
-
-                    if (!user || !(await compare(password, user.password))) {
-                        throw new Error("Invalid username or password");
-                    }
-                    return { ...user, isAdmin: true };
-                } else {
+                if (credentials) {
                     const { email, password } = credentials;
 
                     if (!email || !password) {
@@ -41,12 +24,21 @@ export const authOptions = {
                     if (!user || !(await compare(password, user.password))) {
                         throw new Error("Invalid username or password");
                     }
-                    return user;
+                    return { ...user };
                 }
             },
         }),
     ],
-    session: { strategy: "jwt" },
+    callbacks: {
+        jwt: async ({ token, user }) => {
+            user && (token.user = user);
+            return token;
+        },
+        session: async ({ session, token }) => {
+            session.user = token.user.dataValues; // Setting token in session
+            return session;
+        },
+    },
 };
 
 export default NextAuth(authOptions);

@@ -19,7 +19,6 @@ export default async function handler(req, res) {
         }
     } else if (req.method === "POST") {
         try {
-            console.log(req.body);
             if (!req.body) {
                 return res.status(400).json({ error: "Data is required" });
             }

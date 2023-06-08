@@ -58,13 +58,14 @@ export default function Category() {
                             address,
                             created_at,
                             updated_at,
+                            isAdmin,
                             ...rest
                         } = obj;
                         return rest;
                     })
                 );
             })
-            .catch((error) => console.log(error));
+            .catch((error) => console.error(error));
     };
 
     useEffect(() => {
@@ -73,10 +74,15 @@ export default function Category() {
 
     return (
         <Layout title="User">
-            <Header title="User" onAdd={() => {}} />
+            <Header title="User" onAdd={false} />
             <ToastContainer />
 
-            <Table data={data} onEdit={handlePutOpen} onDelete={handleDelete} />
+            <Table
+                data={data}
+                onWatch={false}
+                onEdit={handlePutOpen}
+                onDelete={handleDelete}
+            />
 
             {/* Model Post */}
             <ModelPost
@@ -282,7 +288,7 @@ function ModelPut({ isOpen, data, onClose, onSubmit }) {
                     setPhone(response.data.phone);
                     setAddress(response.data.address);
                 })
-                .catch((error) => console.log(error));
+                .catch((error) => console.error(error));
             return user;
         };
         if (data) {

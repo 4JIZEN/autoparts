@@ -38,13 +38,13 @@ export default function Navbar({ onSearchChange }) {
     useEffect(() => {
         const fetchUser = async () => {
             await axios
-                .get(`/api/user?email=${session?.user.email}`)
+                .get(`/api/user?email=${session?.user?.email}`)
                 .then((response) => {
                     if (response?.data) {
                         setUserData(response.data);
                     }
                 })
-                .catch((error) => console.log(error));
+                .catch((error) => console.error(error));
         };
 
         fetchUser();
@@ -115,7 +115,9 @@ export default function Navbar({ onSearchChange }) {
                                 <a
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        signOut();
+                                        signOut({
+                                            callbackUrl: `${window.location.origin}`,
+                                        });
                                     }}
                                 >
                                     ออกจากระบบ

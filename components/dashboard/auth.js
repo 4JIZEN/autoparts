@@ -17,7 +17,7 @@ const Auth = () => {
         }).then(({ ok, error }) => {
             if (ok) {
                 toast.success("เข้าสู่ระบบสำเร็จ");
-                router.push("/dashboard/order");
+                router.push("/dashboard");
             } else {
                 toast.error("อีเมลหรือรห้สผ่านไม่ถูกต้อง");
             }

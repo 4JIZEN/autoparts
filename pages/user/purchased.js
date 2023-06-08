@@ -14,7 +14,7 @@ export default function Purchased() {
     useEffect(() => {
         const fetchOrder = async () => {
             const orders = await axios
-                .get(`/api/order?user_id=${userData?.id}}`)
+                .get(`/api/order?user_id=${userData?.id}`)
                 .then((response) => response.data);
 
             const data = await Promise.all(
@@ -51,7 +51,7 @@ export default function Purchased() {
                         setUserData(response.data);
                     }
                 })
-                .catch((error) => console.log(error));
+                .catch((error) => console.error(error));
         };
 
         fetchData();

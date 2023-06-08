@@ -10,7 +10,7 @@ export default function Category({ onChange }) {
             .then((response) => {
                 setData(response.data);
             })
-            .catch((error) => console.log(error));
+            .catch((error) => console.error(error));
     };
 
     useEffect(() => {

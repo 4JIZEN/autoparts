@@ -37,7 +37,6 @@ export default function AccountInfoForm() {
             },
             body: JSON.stringify(update),
         }).then(async (res) => {
-            console.log(res.status);
             if (res.status === 200) {
                 toast.success("บันทึกสำเร็จ");
             } else {
@@ -58,7 +57,7 @@ export default function AccountInfoForm() {
                     });
                 }
             })
-            .catch((error) => console.log(error));
+            .catch((error) => console.error(error));
     };
     useEffect(() => {
         fetchData();

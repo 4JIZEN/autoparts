@@ -7,10 +7,10 @@ const sequelize = new Sequelize(
     {
         host: process.env.DB_HOST,
         dialect: "mysql",
+        logging: false,
     }
 );
 
-import ModelAdmin from "./models/Admin";
 import ModelUsers from "./models/Users";
 import ModelCategories from "./models/Categories";
 import ModelProducts from "./models/Products";
@@ -19,7 +19,6 @@ import ModelCarts from "./models/Carts";
 import ModelOrderProds from "./models/OrderProds";
 import ModelClaims from "./models/Claims";
 
-const Admin = ModelAdmin(sequelize, DataTypes);
 const Users = ModelUsers(sequelize, DataTypes);
 const Categories = ModelCategories(sequelize, DataTypes);
 const Products = ModelProducts(sequelize, DataTypes);
@@ -28,13 +27,4 @@ const Carts = ModelCarts(sequelize, DataTypes);
 const OrderProds = ModelOrderProds(sequelize, DataTypes);
 const Claims = ModelClaims(sequelize, DataTypes);
 
-export {
-    Admin,
-    Users,
-    Categories,
-    Products,
-    Orders,
-    Carts,
-    OrderProds,
-    Claims,
-};
+export { Users, Categories, Products, Orders, Carts, OrderProds, Claims };

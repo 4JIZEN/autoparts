@@ -43,6 +43,11 @@ export default (sequelize, DataTypes) => {
                 allowNull: false,
                 defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
             },
+            isAdmin: {
+                type: DataTypes.BOOLEAN,
+                allowNull: false,
+                defaultValue: false,
+            },
         },
         {
             tableName: "users",

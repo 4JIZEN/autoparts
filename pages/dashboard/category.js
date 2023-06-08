@@ -52,7 +52,7 @@ export default function Category() {
             .then((response) => {
                 setData(response.data);
             })
-            .catch((error) => console.log(error));
+            .catch((error) => console.error(error));
     };
 
     useEffect(() => {
@@ -63,7 +63,12 @@ export default function Category() {
         <Layout title="Category">
             <Header title="Category" onAdd={() => setIsOpenPost(true)} />
             <ToastContainer />
-            <Table data={data} onEdit={handlePutOpen} onDelete={handleDelete} />
+            <Table
+                data={data}
+                onWatch={false}
+                onEdit={handlePutOpen}
+                onDelete={handleDelete}
+            />
 
             {/* Model Post */}
             <ModelPost
