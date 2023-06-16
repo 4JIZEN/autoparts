@@ -1,5 +1,4 @@
 # autoparts
 
 ### Fix
-- Dashboard Detail
-- Order Detail
+- จ่ายเงินปลายทาง, QR
