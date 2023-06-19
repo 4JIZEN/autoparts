@@ -75,7 +75,7 @@ export default function Checkout() {
 
     useEffect(() => {
         if (product !== null) {
-            setAmount(parseInt(product.price));
+            setAmount(parseInt(product.price) * parseInt(qty));
             setElOverall(
                 <div key={product.id} className="flex items-center mb-4">
                     <img
