@@ -60,7 +60,7 @@ const Auth = () => {
         <div className="my-[2%] flex flex-col items-center justify-center ">
             <ToastContainer />
             <h1 className="text-3xl font-bold mb-4">
-                {isSignIn ? "Sign In" : "Sign Up"}
+                {isSignIn ? "เข้าสู่ระบบ" : "สมัครสมาชิก"}
             </h1>
             <form
                 className="w-full max-w-sm bg-white p-8 rounded shadow"

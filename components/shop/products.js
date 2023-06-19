@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Link from "next/link";
-
+import { useSession } from "next-auth/react";
 export default function Products({ categories, search }) {
+    const { data: session, status } = useSession();
     const [data, setData] = useState(null);
     const [elProduct, setElProduct] = useState(<></>);
 
@@ -38,7 +39,7 @@ export default function Products({ categories, search }) {
                 <Link
                     key={product.id}
                     className="bg-white p-4 shadow rounded-lg cursor-pointer transition duration-300 ease-in-out hover:bg-blue-500 hover:text-white hover:shadow-lg flex flex-col justify-between"
-                    href={`/product/${product.id}`}
+                    href={session?.user ? `/product/${product.id}` : "/signin"}
                 >
                     <div>
                         <img

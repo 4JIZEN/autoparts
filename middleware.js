@@ -36,29 +36,5 @@ export default async function middleware(req) {
         }
     }
 
-    // console.log(session?.user.dataValues);
-
-    // if (session) {
-    //     if (path === "/dashboard" && !session?.user?.dataValues.isAdmin) {
-    //         return NextResponse.redirect(new URL("/", req.url));
-    //     }
-    // }
-
-    // if (session && path === "/signin") {
-    //     return NextResponse.redirect(new URL("/", req.url));
-    // }
-
-    // if (!session) {
-    //     if (
-    //         path === "/cart" ||
-    //         path === "/claim" ||
-    //         path === "/user" ||
-    //         path === "/product" ||
-    //         path === "/checkout" ||
-    //         path === "/checkouts"
-    //     ) {
-    //         return NextResponse.redirect(new URL("/signin", req.url));
-    //     }
-    // }
     return NextResponse.next();
 }
