@@ -20,6 +20,16 @@ export default (sequelize, DataTypes) => {
                 type: DataTypes.INTEGER,
                 allowNull: false,
             },
+            payment: {
+                type: DataTypes.STRING(50),
+                collate: "utf8mb4_general_ci",
+                allowNull: true,
+            },
+            payment_status: {
+                type: DataTypes.BOOLEAN,
+                allowNull: true,
+                defaultValue: false,
+            },
             created_at: {
                 type: DataTypes.DATE,
                 allowNull: false,

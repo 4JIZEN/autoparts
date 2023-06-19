@@ -9,14 +9,14 @@ import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function Category() {
+export default function Promptpay() {
     const [data, setData] = useState([]);
     const [isOpenPost, setIsOpenPost] = useState(false);
     const [isOpenPut, setIsOpenPut] = useState(false);
     const [currentData, setCurrentData] = useState(null);
 
     const handlePostSubmit = async () => {
-        await getCategory();
+        await getData();
         setIsOpenPost(false);
         toast.success("บันทึกสำเร็จ");
     };
@@ -27,17 +27,17 @@ export default function Category() {
     };
 
     const handlePutSubmit = async () => {
-        await getCategory();
+        await getData();
         setIsOpenPut(false);
         toast.success("บันทึกสำเร็จ");
     };
 
     const handleDelete = async (id) => {
-        if (confirm("confirm to delete?")) {
+        if (confirm("ยืนยันการลบ?")) {
             try {
-                const deleted = await axios.delete(`/api/categories?id=${id}`);
+                const deleted = await axios.delete(`/api/promptpay?id=${id}`);
                 if (deleted.status === 200) {
-                    await getCategory();
+                    await getData();
                     toast.success("ลบสำเร็จ");
                 }
             } catch (err) {
@@ -46,9 +46,9 @@ export default function Category() {
         }
     };
 
-    const getCategory = async () => {
+    const getData = async () => {
         await axios
-            .get("/api/categories")
+            .get("/api/promptpay")
             .then((response) => {
                 setData(response.data);
             })
@@ -56,17 +56,20 @@ export default function Category() {
     };
 
     useEffect(() => {
-        getCategory();
+        getData();
     }, []);
 
     return (
-        <Layout title="หมวดหมู่">
-            <Header title="หมวดหมู่" onAdd={() => setIsOpenPost(true)} />
+        <Layout title="พร้อมเพย์">
+            <Header
+                title="พร้อมเพย์"
+                onAdd={data.length ? false : () => setIsOpenPost(true)}
+            />
             <ToastContainer />
             <Table
                 data={data}
                 onWatch={false}
-                onEdit={handlePutOpen}
+                onEdit={false}
                 onDelete={handleDelete}
             />
 
@@ -76,54 +79,46 @@ export default function Category() {
                 onClose={() => setIsOpenPost(false)}
                 onSubmit={handlePostSubmit}
             />
-
-            {/* Model Put */}
-            <ModelPut
-                isOpen={isOpenPut}
-                data={currentData}
-                onClose={() => setIsOpenPut(false)}
-                onSubmit={handlePutSubmit}
-            />
         </Layout>
     );
 }
 
 function ModelPost({ isOpen, onClose, onSubmit }) {
-    const [title, setTitle] = useState("");
+    const [phone, setPhone] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const created = await axios.post("/api/categories", { title });
+            const created = await axios.post("/api/promptpay", { phone });
             if (created.status === 200) {
                 await onSubmit();
             }
         } catch (err) {
             console.error(err);
         }
-        setTitle("");
+        setPhone("");
     };
 
     const handleClose = () => {
         onClose();
-        setTitle("");
+        setPhone("");
     };
 
     return (
         <Model isOpen={isOpen} onClose={handleClose}>
-            <h2 className="text-lg font-medium mb-4">เพิ่มหมวดหมู่</h2>
+            <h2 className="text-lg font-medium mb-4">เพิ่มเบอร์พร้อมเพย์</h2>
             <form onSubmit={handleSubmit} className="max-w-lg mx-auto mt-10">
                 <div className="mb-5">
                     <label htmlFor="title" className="block mb-2 font-bold">
-                        หมวดหมู่
+                        เบอร์พร้อมเพย์
                     </label>
                     <input
                         type="text"
                         name="title"
                         id="title"
                         required={true}
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
                         className="w-full px-4 py-2 border rounded-md outline-none focus:border-blue-500"
                     />
                 </div>
@@ -134,64 +129,6 @@ function ModelPost({ isOpen, onClose, onSubmit }) {
                         className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
                     >
                         เพิ่ม
-                    </button>
-                </div>
-            </form>
-        </Model>
-    );
-}
-
-function ModelPut({ isOpen, data, onClose, onSubmit }) {
-    const [id, setId] = useState(null);
-    const [title, setTitle] = useState(null);
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const updated = await axios.put(`/api/categories?id=${id}`, {
-                title,
-            });
-            if (updated.status === 200) {
-                await onSubmit();
-            }
-        } catch (err) {
-            console.error(err);
-        }
-    };
-
-    const handleClose = () => {
-        onClose();
-    };
-    useEffect(() => {
-        setId(data?.id);
-        setTitle(data?.title);
-    }, [data]);
-
-    return (
-        <Model isOpen={isOpen} onClose={handleClose}>
-            <h2 className="text-lg font-medium mb-4">แก้ไขหมวดหมู่</h2>
-            <form onSubmit={handleSubmit} className="max-w-lg mx-auto mt-10">
-                <div className="mb-5">
-                    <label htmlFor="title" className="block mb-2 font-bold">
-                        หมวดหมู่
-                    </label>
-                    <input
-                        type="text"
-                        name="title"
-                        id="title"
-                        required={true}
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        className="w-full px-4 py-2 border rounded-md outline-none focus:border-blue-500"
-                    />
-                </div>
-
-                <div className="flex justify-center">
-                    <button
-                        type="submit"
-                        className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-                    >
-                        บันทึก
                     </button>
                 </div>
             </form>

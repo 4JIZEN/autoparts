@@ -109,7 +109,7 @@ export default function Cart() {
                                             </h3>
                                             <p className="text-gray-600">
                                                 จำนวน : {cart.qty} &times; ราคา
-                                                : {cart.product.price} THB
+                                                : {cart.product.price} บาท
                                             </p>
                                         </div>
                                         <button
@@ -131,7 +131,7 @@ export default function Cart() {
                                     รวมราคา
                                 </h2>
                                 <p className="text-xl font-semibold">
-                                    {calculateTotalPrice(carts)} THB
+                                    {calculateTotalPrice(carts)} บาท
                                 </p>
                             </div>
 

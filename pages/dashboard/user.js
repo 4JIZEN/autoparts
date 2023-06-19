@@ -73,8 +73,8 @@ export default function Category() {
     }, []);
 
     return (
-        <Layout title="User">
-            <Header title="User" onAdd={false} />
+        <Layout title="ผู้ใช้">
+            <Header title="ผู้ใช้" onAdd={false} />
             <ToastContainer />
 
             <Table
@@ -151,7 +151,7 @@ function ModelPost({ isOpen, onClose, onSubmit }) {
             <form onSubmit={handleSubmit} className="max-w-lg mx-auto mt-10">
                 <div className="mb-5">
                     <label htmlFor="firstname" className="block mb-2 font-bold">
-                        Firstname
+                        ชื่อ
                     </label>
                     <input
                         type="text"
@@ -165,7 +165,7 @@ function ModelPost({ isOpen, onClose, onSubmit }) {
                 </div>
                 <div className="mb-5">
                     <label htmlFor="lastname" className="block mb-2 font-bold">
-                        Lastname
+                        นามสกุล
                     </label>
                     <input
                         type="text"
@@ -179,7 +179,7 @@ function ModelPost({ isOpen, onClose, onSubmit }) {
                 </div>
                 <div className="mb-5">
                     <label htmlFor="email" className="block mb-2 font-bold">
-                        Email
+                        อีเมล
                     </label>
                     <input
                         type="email"
@@ -193,7 +193,7 @@ function ModelPost({ isOpen, onClose, onSubmit }) {
                 </div>
                 <div className="mb-5">
                     <label htmlFor="phone" className="block mb-2 font-bold">
-                        Phone
+                        เบอร์
                     </label>
                     <input
                         type="text"
@@ -207,7 +207,7 @@ function ModelPost({ isOpen, onClose, onSubmit }) {
                 </div>
                 <div className="mb-5">
                     <label htmlFor="address" className="block mb-2 font-bold">
-                        Address
+                        ที่อยู
                     </label>
                     <textarea
                         type="text"
@@ -221,7 +221,7 @@ function ModelPost({ isOpen, onClose, onSubmit }) {
                 </div>
                 <div className="mb-5">
                     <label htmlFor="password" className="block mb-2 font-bold">
-                        Password
+                        รห้สผ่าน
                     </label>
                     <input
                         type="password"
@@ -239,7 +239,7 @@ function ModelPost({ isOpen, onClose, onSubmit }) {
                         type="submit"
                         className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
                     >
-                        Submit
+                        บันทึก
                     </button>
                 </div>
             </form>
@@ -298,11 +298,11 @@ function ModelPut({ isOpen, data, onClose, onSubmit }) {
 
     return (
         <Model isOpen={isOpen} onClose={handleClose}>
-            <h2 className="text-lg font-medium mb-4">Edit Category</h2>
+            <h2 className="text-lg font-medium mb-4">แก้ไขผู้ใช้</h2>
             <form onSubmit={handleSubmit} className="max-w-lg mx-auto mt-10">
                 <div className="mb-5">
                     <label htmlFor="firstname" className="block mb-2 font-bold">
-                        Firstname
+                        ชื่อ
                     </label>
                     <input
                         type="text"
@@ -316,7 +316,7 @@ function ModelPut({ isOpen, data, onClose, onSubmit }) {
                 </div>
                 <div className="mb-5">
                     <label htmlFor="lastname" className="block mb-2 font-bold">
-                        Lastname
+                        นามสกุล
                     </label>
                     <input
                         type="text"
@@ -330,7 +330,7 @@ function ModelPut({ isOpen, data, onClose, onSubmit }) {
                 </div>
                 <div className="mb-5">
                     <label htmlFor="email" className="block mb-2 font-bold">
-                        Email
+                        อีเมล
                     </label>
                     <input
                         type="email"
@@ -344,7 +344,7 @@ function ModelPut({ isOpen, data, onClose, onSubmit }) {
                 </div>
                 <div className="mb-5">
                     <label htmlFor="phone" className="block mb-2 font-bold">
-                        Phone
+                        เบอร์
                     </label>
                     <input
                         type="text"
@@ -358,7 +358,7 @@ function ModelPut({ isOpen, data, onClose, onSubmit }) {
                 </div>
                 <div className="mb-5">
                     <label htmlFor="address" className="block mb-2 font-bold">
-                        Address
+                        ที่อยู่
                     </label>
                     <textarea
                         type="text"
@@ -376,7 +376,7 @@ function ModelPut({ isOpen, data, onClose, onSubmit }) {
                         type="submit"
                         className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
                     >
-                        Submit
+                        บันทึก
                     </button>
                 </div>
             </form>

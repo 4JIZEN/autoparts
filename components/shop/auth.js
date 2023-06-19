@@ -24,7 +24,7 @@ const Auth = () => {
             }).then(({ ok, error }) => {
                 if (ok) {
                     toast.success("เข้าสู่ระบบสำเร็จ");
-                    router.push("/");
+                    router.push("/list");
                 } else {
                     toast.error("อีเมลหรือรห้สผ่านไม่ถูกต้อง");
                 }
@@ -74,7 +74,7 @@ const Auth = () => {
                                 htmlFor="email"
                                 className="block text-gray-700 font-bold mb-2"
                             >
-                                Email
+                                อีเมล
                             </label>
                             <input
                                 type="email"
@@ -88,7 +88,7 @@ const Auth = () => {
                                 htmlFor="password"
                                 className="block text-gray-700 font-bold mb-2"
                             >
-                                Password
+                                รห้สผ่าน
                             </label>
                             <input
                                 type="password"
@@ -106,7 +106,7 @@ const Auth = () => {
                                 htmlFor="firstname"
                                 className="block text-gray-700 font-bold mb-2"
                             >
-                                Firstname
+                                ชื่อ
                             </label>
                             <input
                                 type="text"
@@ -121,7 +121,7 @@ const Auth = () => {
                                 htmlFor="lastname"
                                 className="block text-gray-700 font-bold mb-2"
                             >
-                                Lastname
+                                นามสกุล
                             </label>
                             <input
                                 type="text"
@@ -136,7 +136,7 @@ const Auth = () => {
                                 htmlFor="email"
                                 className="block text-gray-700 font-bold mb-2"
                             >
-                                Email
+                                อีเมล
                             </label>
                             <input
                                 type="email"
@@ -151,7 +151,7 @@ const Auth = () => {
                                 htmlFor="phone"
                                 className="block text-gray-700 font-bold mb-2"
                             >
-                                Phone
+                                เบอร์
                             </label>
                             <input
                                 type="text"
@@ -166,7 +166,7 @@ const Auth = () => {
                                 htmlFor="address"
                                 className="block text-gray-700 font-bold mb-2"
                             >
-                                Address
+                                ที่อยู่
                             </label>
                             <textarea
                                 type="text"
@@ -181,7 +181,7 @@ const Auth = () => {
                                 htmlFor="password"
                                 className="block text-gray-700 font-bold mb-2"
                             >
-                                Password
+                                รห้สผ่าน
                             </label>
                             <input
                                 type="password"
@@ -199,19 +199,17 @@ const Auth = () => {
                     className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                     type="submit"
                 >
-                    {isSignIn ? "Sign In" : "Sign Up"}
+                    {isSignIn ? "เข้าสู่ระบบ" : "สมัครสมาชิก"}
                 </button>
 
                 {/* Switch button */}
                 <p className="mt-4">
-                    {isSignIn
-                        ? "Don't have an account?"
-                        : "Already have an account?"}
+                    {isSignIn ? "ไม่มีบัญชี?" : "มีบัญชีอยู่แล้ว?"}
                     <button
                         className="ml-2 text-blue-500 hover:text-blue-700 font-bold"
                         onClick={handleSwitchMode}
                     >
-                        {isSignIn ? "Sign Up" : "Sign In"}
+                        {isSignIn ? "สมัครสมาชิก" : "เข้าสู่ระบบ"}
                     </button>
                 </p>
             </form>

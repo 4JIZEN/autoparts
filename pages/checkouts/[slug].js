@@ -10,9 +10,28 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import Router from "next/router";
 
+import QRCode from "qrcode.react";
+const generatePayload = require("promptpay-qr");
+
 export default function Checkouts() {
     const { data: session, status } = useSession();
     const router = useRouter();
+
+    const [phoneNumber, setPhoneNumber] = useState("0648409132");
+    const [amount, setAmount] = useState(1.0);
+    const [qrCode, setqrCode] = useState("sample");
+
+    const [selectedPayment, setSelectedPayment] = useState("cash");
+
+    const handlePaymentSelection = (paymentOption) => {
+        setSelectedPayment(paymentOption);
+
+        if (paymentOption === "qr") {
+            setqrCode(generatePayload(phoneNumber, { amount }));
+        } else {
+            setqrCode("");
+        }
+    };
 
     const [qty, setQty] = useState(null);
 
@@ -26,6 +45,7 @@ export default function Checkouts() {
             .post(`/api/order/`, {
                 user_id: userData.id,
                 price: calculateTotalPrice(carts),
+                payment: selectedPayment,
             })
             .then(async (response) => {
                 if (response.data) {
@@ -41,7 +61,7 @@ export default function Checkouts() {
 
                     toast.success("สั่งซื้อสำเร็จ");
                     setTimeout(() => {
-                        router.push("/");
+                        router.push("/list");
                     }, 1000);
                 }
             });
@@ -60,6 +80,7 @@ export default function Checkouts() {
 
     useEffect(() => {
         if (carts !== null) {
+            setAmount(parseInt(calculateTotalPrice(carts || 0)));
             setElOverall(
                 carts.map((cart) => (
                     <div key={cart.id} className="flex items-center mb-4">
@@ -74,7 +95,7 @@ export default function Checkouts() {
                             </h3>
                             <p className="text-gray-600">
                                 จำนวน : {cart.qty} &times; ราคา:
-                                {cart.product.price} THB
+                                {cart.product.price} บาท
                             </p>
                         </div>
                     </div>
@@ -158,6 +179,33 @@ export default function Checkouts() {
                             </h3>
                         </div>
                     </div>
+
+                    <div className="flex space-x-4 mb-8">
+                        <button
+                            className={`${
+                                selectedPayment === "cash"
+                                    ? "bg-blue-500"
+                                    : "bg-gray-300"
+                            } hover:bg-blue-600 text-white font-bold py-2 px-4 rounded`}
+                            onClick={() => handlePaymentSelection("cash")}
+                        >
+                            เก็บเงินปลายทาง
+                        </button>
+                        <button
+                            className={`${
+                                selectedPayment === "qr"
+                                    ? "bg-blue-500"
+                                    : "bg-gray-300"
+                            } hover:bg-blue-600 text-white font-bold py-2 px-4 rounded`}
+                            onClick={() => handlePaymentSelection("qr")}
+                        >
+                            สแกนคิวอาร์
+                        </button>
+                    </div>
+
+                    {selectedPayment === "qr" && qrCode && (
+                        <QRCode value={qrCode} className="mb-8" />
+                    )}
 
                     <button
                         className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"

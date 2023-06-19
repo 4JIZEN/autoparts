@@ -86,8 +86,8 @@ export default function Product() {
     }, []);
 
     return (
-        <Layout title="Product">
-            <Header title="Product" onAdd={() => setIsOpenPost(true)} />
+        <Layout title="รายการสินค้า">
+            <Header title="รายการสินค้า" onAdd={() => setIsOpenPost(true)} />
             <ToastContainer />
 
             <Table
@@ -175,11 +175,11 @@ function ModelPost({ isOpen, onClose, onSubmit }) {
 
     return (
         <Model isOpen={isOpen} onClose={handleClose}>
-            <h2 className="text-lg font-medium mb-4">New Product</h2>
+            <h2 className="text-lg font-medium mb-4">เพิ่มรายการสินค้า</h2>
             <form onSubmit={handleSubmit} className="max-w-lg mx-auto mt-10">
                 <div className="mb-5">
                     <label htmlFor="title" className="block mb-2 font-bold">
-                        Title
+                        ชื่อสินค้า
                     </label>
                     <input
                         type="text"
@@ -193,7 +193,7 @@ function ModelPost({ isOpen, onClose, onSubmit }) {
                 </div>
                 <div className="mb-5">
                     <label htmlFor="price" className="block mb-2 font-bold">
-                        Price
+                        ราคา
                     </label>
                     <input
                         type="number"
@@ -207,7 +207,7 @@ function ModelPost({ isOpen, onClose, onSubmit }) {
                 </div>
                 <div className="mb-5">
                     <label htmlFor="qty" className="block mb-2 font-bold">
-                        Quantity
+                        จำนวน
                     </label>
                     <input
                         type="number"
@@ -224,7 +224,7 @@ function ModelPost({ isOpen, onClose, onSubmit }) {
                         htmlFor="description"
                         className="block mb-2 font-bold"
                     >
-                        Description
+                        รายละเอียดสินค้า
                     </label>
                     <input
                         type="text"
@@ -238,7 +238,7 @@ function ModelPost({ isOpen, onClose, onSubmit }) {
                 </div>
                 <div className="mb-5">
                     <label htmlFor="image" className="block mb-2 font-bold">
-                        Image
+                        รูป
                     </label>
                     <input
                         type="text"
@@ -253,7 +253,7 @@ function ModelPost({ isOpen, onClose, onSubmit }) {
 
                 <div className="mb-5">
                     <label htmlFor="category" className="block mb-2 font-bold">
-                        Category
+                        หมวดหมู่
                     </label>
                     <select
                         name="category"
@@ -276,7 +276,7 @@ function ModelPost({ isOpen, onClose, onSubmit }) {
                         type="submit"
                         className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
                     >
-                        Submit
+                        เพิ่ม
                     </button>
                 </div>
             </form>
@@ -348,11 +348,11 @@ function ModelPut({ isOpen, data, onClose, onSubmit }) {
 
     return (
         <Model isOpen={isOpen} onClose={handleClose}>
-            <h2 className="text-lg font-medium mb-4">Edit Category</h2>
+            <h2 className="text-lg font-medium mb-4">แก้ไขรายการสินค้า</h2>
             <form onSubmit={handleSubmit} className="max-w-lg mx-auto mt-10">
                 <div className="mb-5">
                     <label htmlFor="title" className="block mb-2 font-bold">
-                        Title
+                        ชื่อสินค้า
                     </label>
                     <input
                         type="text"
@@ -366,7 +366,7 @@ function ModelPut({ isOpen, data, onClose, onSubmit }) {
                 </div>
                 <div className="mb-5">
                     <label htmlFor="price" className="block mb-2 font-bold">
-                        Price
+                        ราคา
                     </label>
                     <input
                         type="number"
@@ -380,7 +380,7 @@ function ModelPut({ isOpen, data, onClose, onSubmit }) {
                 </div>
                 <div className="mb-5">
                     <label htmlFor="qty" className="block mb-2 font-bold">
-                        Quantity
+                        จำนวน
                     </label>
                     <input
                         type="number"
@@ -397,7 +397,7 @@ function ModelPut({ isOpen, data, onClose, onSubmit }) {
                         htmlFor="description"
                         className="block mb-2 font-bold"
                     >
-                        Description
+                        รายละเอียด
                     </label>
                     <input
                         type="text"
@@ -411,7 +411,7 @@ function ModelPut({ isOpen, data, onClose, onSubmit }) {
                 </div>
                 <div className="mb-5">
                     <label htmlFor="image" className="block mb-2 font-bold">
-                        Image
+                        รูป
                     </label>
                     <input
                         type="text"
@@ -426,7 +426,7 @@ function ModelPut({ isOpen, data, onClose, onSubmit }) {
 
                 <div className="mb-5">
                     <label htmlFor="category" className="block mb-2 font-bold">
-                        Category
+                        หมวดหมู่
                     </label>
                     <select
                         name="category"
@@ -449,7 +449,7 @@ function ModelPut({ isOpen, data, onClose, onSubmit }) {
                         type="submit"
                         className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
                     >
-                        Submit
+                        บันทึก
                     </button>
                 </div>
             </form>

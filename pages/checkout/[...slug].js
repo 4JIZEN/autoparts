@@ -9,9 +9,16 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 
+import QRCode from "qrcode.react";
+const generatePayload = require("promptpay-qr");
+
 export default function Checkout() {
     const { data: session, status } = useSession();
     const router = useRouter();
+
+    const [phoneNumber, setPhoneNumber] = useState("0648409132");
+    const [amount, setAmount] = useState(1.0);
+    const [qrCode, setqrCode] = useState("sample");
 
     const [qty, setQty] = useState(null);
 
@@ -19,6 +26,18 @@ export default function Checkout() {
     const [product, setProduct] = useState(null);
 
     const [elOverall, setElOverall] = useState(<></>);
+
+    const [selectedPayment, setSelectedPayment] = useState("cash");
+
+    const handlePaymentSelection = (paymentOption) => {
+        setSelectedPayment(paymentOption);
+
+        if (paymentOption === "qr") {
+            setqrCode(generatePayload(phoneNumber, { amount }));
+        } else {
+            setqrCode("");
+        }
+    };
 
     const calculateTotalPrice = (data) => {
         let totalPrice = 0;
@@ -36,6 +55,7 @@ export default function Checkout() {
             .post(`/api/order/`, {
                 user_id: userData.id,
                 price: product.price * qty,
+                payment: selectedPayment,
             })
             .then(async (response) => {
                 if (response.data) {
@@ -47,7 +67,7 @@ export default function Checkout() {
 
                     toast.success("สั่งซื้อสำเร็จ");
                     setTimeout(() => {
-                        router.push("/");
+                        router.push("/list");
                     }, 1000);
                 }
             });
@@ -55,6 +75,7 @@ export default function Checkout() {
 
     useEffect(() => {
         if (product !== null) {
+            setAmount(parseInt(product.price));
             setElOverall(
                 <div key={product.id} className="flex items-center mb-4">
                     <img
@@ -68,7 +89,7 @@ export default function Checkout() {
                         </h3>
                         <p className="text-gray-600">
                             จำนวน : {qty} &times; ราคา:
-                            {product.price} THB
+                            {product.price} บาท
                         </p>
                     </div>
                 </div>
@@ -114,14 +135,12 @@ export default function Checkout() {
             <div className="container mx-auto py-8 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20">
                 <div className="max-w-3xl mx-auto">
                     <h1 className="text-3xl font-bold mb-8">ทำการสั่งซื้อ</h1>
-
                     <div className="bg-white p-6 rounded mb-8">
                         <h2 className="text-2xl font-bold mb-4">
                             ที่อยู่จัดส่ง
                         </h2>
                         <p>{userData?.address}</p>
                     </div>
-
                     <div className="bg-white p-6 rounded mb-8">
                         <h2 className="text-2xl font-bold mb-4">
                             รายการสินค้า
@@ -131,10 +150,36 @@ export default function Checkout() {
 
                         <div className="border-t border-gray-300 pt-4 mt-4">
                             <h3 className="text-xl font-bold">
-                                รวมราคา: {qty * product?.price} THB
+                                รวมราคา: {qty * product?.price} บาท
                             </h3>
                         </div>
                     </div>
+                    <div className="flex space-x-4 mb-8">
+                        <button
+                            className={`${
+                                selectedPayment === "cash"
+                                    ? "bg-blue-500"
+                                    : "bg-gray-300"
+                            } hover:bg-blue-600 text-white font-bold py-2 px-4 rounded`}
+                            onClick={() => handlePaymentSelection("cash")}
+                        >
+                            เก็บเงินปลายทาง
+                        </button>
+                        <button
+                            className={`${
+                                selectedPayment === "qr"
+                                    ? "bg-blue-500"
+                                    : "bg-gray-300"
+                            } hover:bg-blue-600 text-white font-bold py-2 px-4 rounded`}
+                            onClick={() => handlePaymentSelection("qr")}
+                        >
+                            สแกนคิวอาร์
+                        </button>
+                    </div>
+
+                    {selectedPayment === "qr" && qrCode && (
+                        <QRCode value={qrCode} className="mb-8" />
+                    )}
 
                     <button
                         className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"

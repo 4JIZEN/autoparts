@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import {
     FaBars,
     FaTimes,
-    FaTachometerAlt,
+    FaMoneyBillAlt,
     FaShoppingCart,
     FaClipboardList,
     FaTags,
@@ -58,7 +58,7 @@ export default function Sidebar() {
                                 href="/dashboard/"
                             >
                                 <FaClipboardList className="mr-2" />
-                                Orders
+                                ออเดอร์
                             </Link>
                         </li>
                         <li>
@@ -67,7 +67,7 @@ export default function Sidebar() {
                                 href="/dashboard/claim"
                             >
                                 <FaTags className="mr-2" />
-                                Claims
+                                เคลมสินค้า
                             </Link>
                         </li>
                         <li>
@@ -76,7 +76,7 @@ export default function Sidebar() {
                                 href="/dashboard/category"
                             >
                                 <FaBoxOpen className="mr-2" />
-                                Category
+                                หมวดหมู่
                             </Link>
                         </li>
                         <li>
@@ -85,7 +85,7 @@ export default function Sidebar() {
                                 href="/dashboard/product"
                             >
                                 <FaShoppingCart className="mr-2" />
-                                Products
+                                รายการสินค้า
                             </Link>
                         </li>
                         <li>
@@ -94,7 +94,16 @@ export default function Sidebar() {
                                 href="/dashboard/user"
                             >
                                 <FaUsers className="mr-2" />
-                                Users
+                                ผู้ใช้
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                className="flex items-center py-2 px-4 text-white/75 hover:bg-black rounded"
+                                href="/dashboard/promptpay"
+                            >
+                                <FaMoneyBillAlt className="mr-2" />
+                                พร้อมเพย์
                             </Link>
                         </li>
                         <li>
@@ -107,18 +116,9 @@ export default function Sidebar() {
                                 }
                             >
                                 <FaSignOutAlt className="mr-2" />
-                                Sign Out
+                                ออกจากระบบ
                             </div>
                         </li>
-                        {/* <li className="md:hidden">
-                            <Link
-                                className="flex items-center py-2 px-4 text-white/75 hover:bg-black rounded"
-                                href="/dashboard/users"
-                            >
-                                <FaSignOutAlt className="mr-2" />
-                                Sign Out
-                            </Link>
-                        </li> */}
                     </ul>
                 </nav>
             </div>

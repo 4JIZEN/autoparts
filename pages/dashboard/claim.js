@@ -66,8 +66,8 @@ export default function Claim() {
     }, []);
 
     return (
-        <Layout title="Claim">
-            <Header title="Claim" onAdd={() => setIsOpenPost(true)} />
+        <Layout title="เคลมสินค้า">
+            <Header title="เคลมสินค้า" onAdd={() => setIsOpenPost(true)} />
             <ToastContainer />
             <Table
                 data={data}
@@ -146,7 +146,7 @@ function ModelPost({ isOpen, onClose, onSubmit }) {
 
     return (
         <Model isOpen={isOpen} onClose={handleClose}>
-            <h2 className="text-lg font-medium mb-4">New Claim</h2>
+            <h2 className="text-lg font-medium mb-4">ฟอร์มเคลมสินค้า</h2>
             <form onSubmit={handleSubmit}>
                 <div className="flex flex-wrap -mx-4 mb-4">
                     <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0">
@@ -154,7 +154,7 @@ function ModelPost({ isOpen, onClose, onSubmit }) {
                             className="block text-gray-700 font-bold mb-2"
                             htmlFor="name"
                         >
-                            Name
+                            ชื่อ-นามสกุล
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -171,7 +171,7 @@ function ModelPost({ isOpen, onClose, onSubmit }) {
                             className="block text-gray-700 font-bold mb-2"
                             htmlFor="email"
                         >
-                            Email
+                            อีเมล
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -190,7 +190,7 @@ function ModelPost({ isOpen, onClose, onSubmit }) {
                             className="block text-gray-700 font-bold mb-2"
                             htmlFor="product-name"
                         >
-                            Product Name
+                            ชื่อสินค้า
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -207,7 +207,7 @@ function ModelPost({ isOpen, onClose, onSubmit }) {
                             className="block text-gray-700 font-bold mb-2"
                             htmlFor="order-no"
                         >
-                            Order No
+                            เลขออเดอร์
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -226,7 +226,7 @@ function ModelPost({ isOpen, onClose, onSubmit }) {
                             className="block text-gray-700 font-bold mb-2"
                             htmlFor="message"
                         >
-                            Message
+                            รายละเอียด
                         </label>
                         <textarea
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -244,7 +244,7 @@ function ModelPost({ isOpen, onClose, onSubmit }) {
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         type="submit"
                     >
-                        Submit
+                        ส่ง
                     </button>
                 </div>
             </form>
@@ -327,7 +327,7 @@ function ModelPut({ isOpen, data, onClose, onSubmit }) {
 
     return (
         <Model isOpen={isOpen} onClose={handleClose}>
-            <h2 className="text-lg font-medium mb-4">Edit Claim</h2>
+            <h2 className="text-lg font-medium mb-4">แก้ไขฟอร์มเคลมสินค้า</h2>
             <form onSubmit={handleSubmit}>
                 <div className="flex flex-wrap -mx-4 mb-4">
                     <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0">
@@ -335,7 +335,7 @@ function ModelPut({ isOpen, data, onClose, onSubmit }) {
                             className="block text-gray-700 font-bold mb-2"
                             htmlFor="name"
                         >
-                            Name
+                            ชื่อ-นามสกุล
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -352,7 +352,7 @@ function ModelPut({ isOpen, data, onClose, onSubmit }) {
                             className="block text-gray-700 font-bold mb-2"
                             htmlFor="email"
                         >
-                            Email
+                            อีเมล
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -371,7 +371,7 @@ function ModelPut({ isOpen, data, onClose, onSubmit }) {
                             className="block text-gray-700 font-bold mb-2"
                             htmlFor="product-name"
                         >
-                            Product Name
+                            ชื่อสินค้า
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -388,7 +388,7 @@ function ModelPut({ isOpen, data, onClose, onSubmit }) {
                             className="block text-gray-700 font-bold mb-2"
                             htmlFor="order-no"
                         >
-                            Order No
+                            เลขออเดอร์
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -407,7 +407,7 @@ function ModelPut({ isOpen, data, onClose, onSubmit }) {
                             className="block text-gray-700 font-bold mb-2"
                             htmlFor="message"
                         >
-                            Message
+                            รายละเอียด
                         </label>
                         <textarea
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -425,7 +425,7 @@ function ModelPut({ isOpen, data, onClose, onSubmit }) {
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         type="submit"
                     >
-                        Submit
+                        บันทึก
                     </button>
                 </div>
             </form>

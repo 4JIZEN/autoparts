@@ -75,13 +75,13 @@ export default function Navbar() {
                                     href="#"
                                     className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
                                 >
-                                    Home
+                                    หน้าหลัก
                                 </a>
                                 <a
                                     href="#"
                                     className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                                 >
-                                    About
+                                    เกี่ยวกับ
                                 </a>
                             </div>
                         </div>
@@ -96,7 +96,7 @@ export default function Navbar() {
                                         onClick={() => setIsOpen(!isOpen)}
                                     >
                                         <span className="sr-only">
-                                            Open user menu
+                                            เปิดเมนูผู้ใช้งาน
                                         </span>
                                         <HiUserCircle className="h-8 w-8 text-gray-300" />
                                     </button>
@@ -114,21 +114,21 @@ export default function Navbar() {
                                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                             role="menuitem"
                                         >
-                                            Your Profile
+                                            โปรไฟล์
                                         </a>
                                         <a
                                             href="#"
                                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                             role="menuitem"
                                         >
-                                            Settings
+                                            ตั่งค่า
                                         </a>
                                         <a
                                             href="#"
                                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                             role="menuitem"
                                         >
-                                            Sign out
+                                            ออกจากระบบ
                                         </a>
                                     </div>
                                 </div>
@@ -146,13 +146,13 @@ export default function Navbar() {
                             href="#"
                             className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
                         >
-                            Home
+                            หน้าหลัก
                         </a>
                         <a
                             href="#"
                             className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                         >
-                            About
+                            เกี่ยวกับ
                         </a>
                     </div>
                 </div>

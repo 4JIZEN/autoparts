@@ -9,11 +9,8 @@ import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { useSession } from "next-auth/react";
 import moment from "moment";
 export default function Orders() {
-    const { data: session, status } = useSession();
-
     const [data, setData] = useState([]);
     const [isOpenWatch, setIsOpenWatch] = useState(false);
     const [currentData, setCurrentData] = useState(null);
@@ -41,7 +38,12 @@ export default function Orders() {
         await axios
             .get("/api/order")
             .then((response) => {
-                setData(response.data);
+                setData(
+                    response.data.map((obj) => {
+                        const { payment_status, ...rest } = obj;
+                        return rest;
+                    })
+                );
             })
             .catch((error) => console.error(error));
     };
@@ -51,8 +53,8 @@ export default function Orders() {
     }, []);
 
     return (
-        <Layout title="Orders">
-            <Header title="Orders" onAdd={false} />
+        <Layout title="ออเดอร์">
+            <Header title="ออเดอร์" onAdd={false} />
             <ToastContainer />
             <Table
                 data={data}
@@ -71,7 +73,6 @@ export default function Orders() {
 }
 
 function ModelWatch({ isOpen, data, onClose }) {
-    // const [id, setId] = useState(null);
     const [order, setOrder] = useState(null);
 
     const handleClose = () => {
@@ -119,21 +120,28 @@ function ModelWatch({ isOpen, data, onClose }) {
 
     return (
         <Model isOpen={isOpen} onClose={handleClose}>
-            <h2 className="text-lg font-medium mb-4">Order Overview</h2>
+            <h2 className="text-lg font-medium mb-4">รายละเอียดออเดอร์</h2>
 
             <div className="mx-4 my-2">
-                <p> Customer : {order?.customer}</p>
-                <p> Order Date : {moment(order?.created_at).format("LLLL")}</p>
-                <p> Total Price : {order?.price} THB</p>
+                <p> ชื่อลูกค้า: {order?.customer}</p>
+                <p>
+                    วันที่สั่งซื้อ : {moment(order?.created_at).format("LLLL")}
+                </p>
+                <p> การชำระเงิน : {order?.payment}</p>
+                <p>
+                    สถานะการชำระเงิน :{" "}
+                    {order?.payment_status ? "ชำระสำเร็จ" : "ยังไม่ได้ชำระ"}
+                </p>
+                <p> ราคารวม : {order?.price} บาท</p>
             </div>
 
             <table className="min-w-full bg-white">
                 <thead>
                     <tr className="bg-black/25">
-                        <th className="py-3 px-6 text-left">Image</th>
-                        <th className="py-3 px-6 text-left">Title</th>
-                        <th className="py-3 px-6 text-left">Price</th>
-                        <th className="py-3 px-6 text-left">Quantity</th>
+                        <th className="py-3 px-6 text-left">รูป</th>
+                        <th className="py-3 px-6 text-left">ชื่อ</th>
+                        <th className="py-3 px-6 text-left">ราคา</th>
+                        <th className="py-3 px-6 text-left">จำนวน</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -162,22 +170,3 @@ function ModelWatch({ isOpen, data, onClose }) {
         </Model>
     );
 }
-
-// const data = {
-//     created_at: "2023-06-08T15:24:15.000Z",
-//     customer: "Natthaphum Phusong",
-//     id: 10013,
-//     price: 158,
-//     products: [
-//         {
-//             description:
-//                 "ดีวันสเปค โปร เวิร์ค สเปรย์โฟมทำความห้องเครื่อง ง่ายๆด้วยตัวเอง\r\nช่วยขจัดคราบน้ำมัน จาระบี, คราบสิ่งสกปรกต่างๆ, ที่จับตัวอยู่ในห้องเครื่องของรถยนต์",
-//             image: "https://siamautoshop.co.th/wp-content/uploads/2022/12/D1-Spec-Engine-Room-Spray-Foam-Cleaner-650-ml-001-1-247x350.png",
-//             price: 79,
-//             qty: 2,
-//             title: "D1 Spec Engine Room Spray Foam Cleaner 650 ml",
-//         },
-//     ],
-//     updated_at: "2023-06-08T15:24:15.000Z",
-//     user_id: 11,
-// };

@@ -18,6 +18,7 @@ import ModelOrders from "./models/Orders";
 import ModelCarts from "./models/Carts";
 import ModelOrderProds from "./models/OrderProds";
 import ModelClaims from "./models/Claims";
+import ModelPromptpay from "./models/Promptpay";
 
 const Users = ModelUsers(sequelize, DataTypes);
 const Categories = ModelCategories(sequelize, DataTypes);
@@ -26,5 +27,15 @@ const Orders = ModelOrders(sequelize, DataTypes);
 const Carts = ModelCarts(sequelize, DataTypes);
 const OrderProds = ModelOrderProds(sequelize, DataTypes);
 const Claims = ModelClaims(sequelize, DataTypes);
+const Promptpay = ModelPromptpay(sequelize, DataTypes);
 
-export { Users, Categories, Products, Orders, Carts, OrderProds, Claims };
+export {
+    Users,
+    Categories,
+    Products,
+    Orders,
+    Carts,
+    OrderProds,
+    Claims,
+    Promptpay,
+};
