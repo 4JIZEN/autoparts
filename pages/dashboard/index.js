@@ -9,7 +9,8 @@ import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import moment from "moment";
+import * as dayjs from "dayjs";
+
 export default function Orders() {
     const [data, setData] = useState([]);
     const [isOpenWatch, setIsOpenWatch] = useState(false);
@@ -40,8 +41,18 @@ export default function Orders() {
             .then((response) => {
                 setData(
                     response.data.map((obj) => {
-                        const { payment_status, ...rest } = obj;
-                        return rest;
+                        const { payment_status, received, address, ...rest } =
+                            obj;
+                        // return rest;
+                        return {
+                            ...rest,
+                            created_at: dayjs(rest.created_at).format(
+                                "DD-MM-YYYY HH:mm:ss"
+                            ),
+                            updated_at: dayjs(rest.updated_at).format(
+                                "DD-MM-YYYY HH:mm:ss"
+                            ),
+                        };
                     })
                 );
             })
@@ -74,10 +85,48 @@ export default function Orders() {
 
 function ModelWatch({ isOpen, data, onClose }) {
     const [order, setOrder] = useState(null);
+    const [paymentStatus, setPaymentStatus] = useState(false);
+    const [optPayment, setOptPayment] = useState(<></>);
 
     const handleClose = () => {
         onClose();
     };
+
+    const handlePaymentStatusChange = (e) => {
+        setOrder((prev) => {
+            return { ...prev, payment_status: e.target.value };
+        });
+        setPaymentStatus(e.target.value);
+    };
+
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            await axios.put(`/api/order?id=${order?.id}`, {
+                payment_status: paymentStatus,
+            });
+            toast.success("บันทึกสำเร็จ");
+        } catch (err) {
+            toast.error("เกิดข้อผิดพลาด");
+            console.error(err);
+        }
+    };
+
+    useEffect(() => {
+        setOptPayment(
+            <select
+                id="payment_status"
+                value={order?.payment_status}
+                onChange={handlePaymentStatusChange}
+                className="ml-2 py-2 px-4 border border-gray-300 rounded text-gray-800 focus:outline-none focus:border-blue-500"
+            >
+                <option value="">-- เลือก --</option>
+                <option value={true}>ชำระสำเร็จ</option>
+                <option value={false}>ยังไม่ได้ชำระ</option>
+            </select>
+        );
+    }, [order]);
 
     useEffect(() => {
         const fetchOrder = async () => {
@@ -110,6 +159,9 @@ function ModelWatch({ isOpen, data, onClose }) {
                 customer: `${user.firstname} ${user.lastname}`,
                 products: products,
             };
+
+            setPaymentStatus(d?.payment_status);
+
             setOrder(d);
         };
 
@@ -122,17 +174,93 @@ function ModelWatch({ isOpen, data, onClose }) {
         <Model isOpen={isOpen} onClose={handleClose}>
             <h2 className="text-lg font-medium mb-4">รายละเอียดออเดอร์</h2>
 
-            <div className="mx-4 my-2">
-                <p> ชื่อลูกค้า: {order?.customer}</p>
-                <p>
-                    วันที่สั่งซื้อ : {moment(order?.created_at).format("LLLL")}
-                </p>
-                <p> การชำระเงิน : {order?.payment}</p>
-                <p>
-                    สถานะการชำระเงิน :{" "}
-                    {order?.payment_status ? "ชำระสำเร็จ" : "ยังไม่ได้ชำระ"}
-                </p>
-                <p> ราคารวม : {order?.price} บาท</p>
+            <div className="flex flex-row w-full justify-around">
+                <div className="mx-4 my-2">
+                    <form className="space-y-4">
+                        <div className="flex items-center">
+                            <label
+                                htmlFor="customer"
+                                className="font-bold text-gray-600"
+                            >
+                                ชื่อลูกค้า:
+                            </label>
+                            <p id="customer" className="ml-2 text-gray-800">
+                                {order?.customer}
+                            </p>
+                        </div>
+                        <div className="flex items-center">
+                            <label
+                                htmlFor="created_at"
+                                className="font-bold text-gray-600"
+                            >
+                                วันที่สั่งซื้อ:
+                            </label>
+                            <p id="created_at" className="ml-2 text-gray-800">
+                                {dayjs(order?.created_at).format(
+                                    "DD-MM-YYYY HH:mm:ss"
+                                )}
+                            </p>
+                        </div>
+                        <div className="flex items-center">
+                            <label
+                                htmlFor="payment"
+                                className="font-bold text-gray-600"
+                            >
+                                การชำระเงิน:
+                            </label>
+                            <p id="payment" className="ml-2 text-gray-800">
+                                {order?.payment === "qr"
+                                    ? "สแกนคิวอาร์"
+                                    : "เก็บเงินปลายทาง"}
+                            </p>
+                        </div>
+                        <div className="flex items-center">
+                            <label
+                                htmlFor="payment_status"
+                                className="font-bold text-gray-600"
+                            >
+                                สถานะการชำระเงิน:
+                            </label>
+                            {/* <select
+                                id="payment_status"
+                                value={paymentStatus}
+                                onChange={handlePaymentStatusChange}
+                                className="ml-2 py-2 px-4 border border-gray-300 rounded text-gray-800 focus:outline-none focus:border-blue-500"
+                            >
+                                <option value="">-- เลือก --</option>
+                                <option value="1">ชำระสำเร็จ</option>
+                                <option value="0">ยังไม่ได้ชำระ</option>
+                            </select> */}
+                            {optPayment}
+                        </div>
+                        <div className="flex items-center">
+                            <label
+                                htmlFor="price"
+                                className="font-bold text-gray-600"
+                            >
+                                ราคารวม:
+                            </label>
+                            <p id="price" className="ml-2 text-gray-800">
+                                {order?.price} บาท
+                            </p>
+                        </div>
+                        <button
+                            type="submit"
+                            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                            onClick={handleFormSubmit}
+                        >
+                            อัพเดด
+                        </button>
+                    </form>
+                </div>
+
+                <div className="mx-4 my-2">
+                    <img
+                        src={order?.received}
+                        alt="Selected"
+                        className="mt-2"
+                    />
+                </div>
             </div>
 
             <table className="min-w-full bg-white">

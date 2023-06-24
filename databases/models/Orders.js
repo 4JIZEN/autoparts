@@ -40,6 +40,14 @@ export default (sequelize, DataTypes) => {
                 allowNull: false,
                 defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
             },
+            received: {
+                type: DataTypes.TEXT,
+                collate: "utf8mb4_general_ci",
+            },
+            address: {
+                type: DataTypes.STRING(1000),
+                allowNull: true,
+            },
         },
         {
             tableName: "orders",

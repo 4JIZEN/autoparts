@@ -162,6 +162,7 @@ function ModelPut({ isOpen, data, onClose, onSubmit }) {
     const handleClose = () => {
         onClose();
     };
+
     useEffect(() => {
         setId(data?.id);
         setTitle(data?.title);

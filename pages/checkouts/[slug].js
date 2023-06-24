@@ -1,5 +1,7 @@
 import Layout from "@/components/shop";
 import Navbar from "@/components/shop/nav";
+import Model from "@/components/dashboard/model";
+import ImageUpload from "@/components/shop/imageUpload";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -16,12 +18,14 @@ const generatePayload = require("promptpay-qr");
 export default function Checkouts() {
     const { data: session, status } = useSession();
     const router = useRouter();
-
+    const [isOpenPut, setIsOpenPut] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState("0648409132");
     const [amount, setAmount] = useState(1.0);
     const [qrCode, setqrCode] = useState("sample");
 
     const [selectedPayment, setSelectedPayment] = useState("cash");
+
+    const [selectedImage, setSelectedImage] = useState(null);
 
     const handlePaymentSelection = (paymentOption) => {
         setSelectedPayment(paymentOption);
@@ -46,6 +50,8 @@ export default function Checkouts() {
                 user_id: userData.id,
                 price: calculateTotalPrice(carts),
                 payment: selectedPayment,
+                received: selectedImage,
+                address: userData?.address,
             })
             .then(async (response) => {
                 if (response.data) {
@@ -65,6 +71,15 @@ export default function Checkouts() {
                     }, 1000);
                 }
             });
+    };
+
+    const handlePutSubmit = async (e) => {
+        setUserData((prev) => {
+            return { ...prev, address: e };
+        });
+
+        setIsOpenPut(false);
+        toast.success("บันทึกสำเร็จ");
     };
 
     const calculateTotalPrice = (data) => {
@@ -161,9 +176,18 @@ export default function Checkouts() {
                     <h1 className="text-3xl font-bold mb-8">ทำการสั่งซื้อ</h1>
 
                     <div className="bg-white p-6 rounded mb-8">
-                        <h2 className="text-2xl font-bold mb-4">
-                            ที่อยู่จัดส่ง
-                        </h2>
+                        <div className="flex justify-between items-center mb-4">
+                            <h2 className="text-2xl font-bold">
+                                ที่อยู่จัดส่ง
+                            </h2>
+
+                            <button
+                                onClick={() => setIsOpenPut(!isOpenPut)}
+                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            >
+                                แก้ไขที่อยู่จัดส่ง
+                            </button>
+                        </div>
                         <p>{userData?.address}</p>
                     </div>
 
@@ -204,7 +228,10 @@ export default function Checkouts() {
                     </div>
 
                     {selectedPayment === "qr" && qrCode && (
-                        <QRCode value={qrCode} className="mb-8" />
+                        <div className="flex flex-row">
+                            <QRCode value={qrCode} className="mb-8 mr-8" />
+                            <ImageUpload handleSetImage={setSelectedImage} />
+                        </div>
                     )}
 
                     <button
@@ -215,6 +242,60 @@ export default function Checkouts() {
                     </button>
                 </div>
             </div>
+
+            <ModelPut
+                isOpen={isOpenPut}
+                data={userData?.address}
+                onClose={() => setIsOpenPut(false)}
+                onSubmit={handlePutSubmit}
+            />
         </Layout>
+    );
+}
+
+function ModelPut({ isOpen, data, onClose, onSubmit }) {
+    const [address, setAddress] = useState(null);
+
+    const hanDleAddressChange = (e) => {
+        setAddress(e.target.value);
+    };
+
+    const handleSubmit = () => {
+        onSubmit(address);
+    };
+
+    useEffect(() => {
+        setAddress(data);
+    }, [data]);
+
+    return (
+        <Model isOpen={isOpen} onClose={() => onClose()}>
+            <h2 className="text-lg font-medium mb-4">แก้ไขที่อยู่จัดส่ง</h2>
+            <form onSubmit={handleSubmit} className="max-w-lg mx-auto mt-10">
+                <div className="mb-5">
+                    <label htmlFor="address" className="block mb-2 font-bold">
+                        ที่อยู่
+                    </label>
+                    <textarea
+                        type="text"
+                        id="address"
+                        name="address"
+                        value={address}
+                        onChange={hanDleAddressChange}
+                        className="w-full border border-gray-300 px-3 py-2 rounded"
+                        required
+                    />
+                </div>
+
+                <div className="flex justify-center">
+                    <button
+                        type="submit"
+                        className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                    >
+                        บันทึก
+                    </button>
+                </div>
+            </form>
+        </Model>
     );
 }
